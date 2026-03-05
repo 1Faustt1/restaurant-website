@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
+    "start": "node ../server/index.js",
     "sass:build": "sass scss:../css --no-source-map",
     "sass:watch": "sass --watch scss:../css --no-source-map",
     "server": "node ../server/index.js"
