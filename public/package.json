@@ -2,8 +2,13 @@
   "name": "shaurmechka",
   "version": "1.0.0",
   "private": true,
+  "engines": {
+    "node": "18.x"
+  },
   "scripts": {
     "start": "node ../server/index.js",
+    "postinstall": "npm rebuild sqlite3 --build-from-source --update-binary",
+    "render-build": "npm install --build-from-source=sqlite3 && npm rebuild sqlite3 --build-from-source --update-binary",
     "sass:build": "sass scss:../css --no-source-map",
     "sass:watch": "sass --watch scss:../css --no-source-map",
     "server": "node ../server/index.js"
