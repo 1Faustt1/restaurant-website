@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/index.css">
+    <link rel="stylesheet" href="../css/staff-menu.css">
+    <title>Меню сотрудника</title>
+</head>
+<body>
+    <header class="header">
+        <div class="header__container">
+            <div class="header__container-left">
+                <a href="index.html" class="header__container-left-link">
+                    <h1 class="header__container-left-title">SHAURMECHKA</h1>
+                    <p class="header__container-left-subtitle">Premium Cafe</p>
+                </a>
+            </div>
+            <div class="header__container-center">
+                <p class="header__container-center-text">Меню сотрудника</p>
+            </div>
+            <div class="header__container-right">
+                <a href="login.html" class="header__container-right-link">Логин</a>
+            </div>
+        </div>
+    </header>
+    <main class="main">
+        <div class="main__content">
+            <nav class="main__nav" aria-label="Меню сотрудника">
+                <button class="main__nav-btn is-active" data-tab-target="tab-orders">Заказы</button>
+                <button class="main__nav-btn" data-tab-target="tab-hall">Зал</button>
+                <button class="main__nav-btn" data-tab-target="tab-stock">Склад</button>
+                <button class="main__nav-btn" data-tab-target="tab-stats">Статистика</button>
+                <button class="main__nav-btn" data-tab-target="tab-staff">Персонал</button>
+                <button class="main__nav-btn" data-tab-target="tab-menu">Меню</button>
+                <button class="main__nav-btn main__nav-btn_order" data-tab-target="tab-create">Создать заказ</button>
+            </nav>
+
+            <section class="main__panel is-active" id="tab-orders">
+                <div class="orders">
+                    <div class="orders__header">
+                        <div>
+                            <h3 class="orders__title">Заказы</h3>
+                            <p class="orders__subtitle">Статусы и позиции по текущим заказам</p>
+                        </div>
+                        <div class="orders__header-controls">
+                            <label class="orders__toggle">
+                                <input type="checkbox" data-orders-show-closed>
+                                <span>Показывать закрытые</span>
+                            </label>
+                            <button class="orders__refresh" type="button" data-orders-refresh>Обновить</button>
+                        </div>
+                    </div>
+                    <div class="orders__grid" data-orders-body></div>
+                </div>
+            </section>
+
+            <section class="main__panel" id="tab-hall">
+                Здесь будет контент для «Зал».
+            </section>
+
+            <section class="main__panel" id="tab-stock">
+                Здесь будет контент для «Склад».
+            </section>
+
+            <section class="main__panel" id="tab-stats">
+                <div class="stats-admin">
+                    <div class="stats-admin__cards">
+                        <div class="stats-admin__card">
+                            <p class="stats-admin__card-label">Всего заказов</p>
+                            <p class="stats-admin__card-value" data-stats-orders>0</p>
+                        </div>
+                        <div class="stats-admin__card">
+                            <p class="stats-admin__card-label">Оборот (закрытые)</p>
+                            <p class="stats-admin__card-value" data-stats-revenue>0₽</p>
+                        </div>
+                        <div class="stats-admin__card">
+                            <p class="stats-admin__card-label">Позиции в меню</p>
+                            <p class="stats-admin__card-value" data-stats-menu>0</p>
+                        </div>
+                    </div>
+
+                    <div class="stats-admin__chart">
+                        <div class="stats-admin__chart-header">
+                            <h4>Выручка по дням</h4>
+                            <span class="stats-admin__chart-range">последние 14 дней</span>
+                        </div>
+                        <div class="stats-admin__chart-bars" data-stats-bars></div>
+                    </div>
+
+                    <div class="stats-admin__table">
+                        <div class="stats-admin__row stats-admin__row_head">
+                            <span>Дата</span>
+                            <span>Заказы</span>
+                            <span>Выручка</span>
+                        </div>
+                        <div class="stats-admin__body" data-stats-list></div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="main__panel" id="tab-staff">
+                <div class="staff">
+                    <div class="staff__header">
+                        <div>
+                            <h3 class="staff__title">Персонал</h3>
+                            <p class="staff__subtitle">Управление логинами, ролями и паролями сотрудников</p>
+                        </div>
+                        <button class="staff__reset" type="button" data-staff-reset>Обновить список</button>
+                    </div>
+
+                    <form class="staff__form" data-staff-form>
+                        <input type="hidden" name="mode" value="create" data-staff-mode>
+                        <input type="hidden" name="originalLogin" value="" data-staff-original>
+
+                        <div class="staff__form-row">
+                            <label class="staff__label" for="staff-login">Логин</label>
+                            <input class="staff__input" id="staff-login" name="login" type="text" placeholder="Пример: user01" required>
+                        </div>
+
+                        <div class="staff__form-row">
+                            <label class="staff__label" for="staff-role">Роль</label>
+                            <select class="staff__input staff__select" id="staff-role" name="role" required>
+                                <option value="Официант">Официант</option>
+                                <option value="Повар">Повар</option>
+                                <option value="Администратор">Администратор</option>
+                                <option value="Владелец">Владелец</option>
+                            </select>
+                        </div>
+
+                        <div class="staff__form-row">
+                            <label class="staff__label" for="staff-password">Пароль</label>
+                            <input class="staff__input" id="staff-password" name="password" type="text" placeholder="Новый пароль">
+                        </div>
+
+                        <div class="staff__form-actions">
+                            <button class="staff__submit" type="submit">Создать</button>
+                            <button class="staff__cancel" type="button" data-staff-cancel>Отмена</button>
+                            <p class="staff__hint">При редактировании укажите новый логин/роль/пароль — пароль всегда заменяется.</p>
+                        </div>
+                    </form>
+
+                    <div class="staff__table">
+                        <div class="staff__row staff__row_head">
+                            <span>Логин</span>
+                            <span>Роль</span>
+                            <span>Статус</span>
+                            <span class="staff__row-actions">Действия</span>
+                        </div>
+                        <div class="staff__body" data-staff-body>
+                            <!-- rows injected by JS -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="main__panel" id="tab-menu">
+                <div class="menu-admin">
+                    <div class="menu-admin__header">
+                        <div>
+                            <h3 class="menu-admin__title">Меню</h3>
+                            <p class="menu-admin__subtitle">Добавляйте, редактируйте или скрывайте позиции</p>
+                        </div>
+                        <button class="menu-admin__refresh" type="button" data-menu-refresh>Обновить</button>
+                    </div>
+
+                    <form class="menu-admin__form" data-menu-form>
+                        <input type="hidden" data-menu-mode value="create">
+                        <input type="hidden" data-menu-id value="">
+                        <div class="menu-admin__form-row">
+                            <label class="menu-admin__label" for="menu-name">Название</label>
+                            <input class="menu-admin__input" id="menu-name" name="name" required>
+                        </div>
+                        <div class="menu-admin__form-row">
+                            <label class="menu-admin__label" for="menu-category">Категория</label>
+                            <input class="menu-admin__input" id="menu-category" name="category" placeholder="Начните ввод..." list="menu-categories-options" autocomplete="off" required>
+                            <datalist id="menu-categories-options"></datalist>
+                        </div>
+                        <div class="menu-admin__form-row">
+                            <label class="menu-admin__label" for="menu-weight">Вес</label>
+                            <input class="menu-admin__input" id="menu-weight" name="weight" placeholder="450г">
+                        </div>
+                        <div class="menu-admin__form-row">
+                            <label class="menu-admin__label" for="menu-price">Цена</label>
+                            <input class="menu-admin__input" id="menu-price" name="price" type="number" min="0" step="1" placeholder="350" required>
+                        </div>
+                        <div class="menu-admin__form-row menu-admin__form-row_wide">
+                            <label class="menu-admin__label" for="menu-desc">Описание</label>
+                            <input class="menu-admin__input" id="menu-desc" name="description" placeholder="Короткое описание">
+                        </div>
+                        <div class="menu-admin__actions">
+                            <button class="menu-admin__submit" type="submit">Создать</button>
+                            <button class="menu-admin__cancel" type="button" data-menu-cancel>Отмена</button>
+                            <label class="menu-admin__toggle">
+                                <input type="checkbox" data-menu-hidden>
+                                <span>Скрыть позицию</span>
+                            </label>
+                        </div>
+                    </form>
+
+                    <div class="menu-admin__table">
+                        <div class="menu-admin__row menu-admin__row_head">
+                            <span>Название</span>
+                            <span>Категория</span>
+                            <span>Цена</span>
+                            <span>Вес</span>
+                            <span>Состояние</span>
+                            <span class="menu-admin__row-actions">Действия</span>
+                        </div>
+                        <div class="menu-admin__body" data-menu-body></div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="main__panel" id="tab-create">
+                <div class="orders">
+                    <div class="orders__header">
+                        <div>
+                            <h3 class="orders__title">Создать заказ</h3>
+                            <p class="orders__subtitle">Для онлайн-заказов и заказов от официанта</p>
+                        </div>
+                    </div>
+                    <form class="orders__create" data-order-form>
+                        <div class="orders__create-row">
+                            <label class="orders__label" for="order-table">Стол</label>
+                            <input class="orders__input" id="order-table" name="table" placeholder="Например: 6" data-order-table>
+                        </div>
+                        <div class="orders__create-row">
+                            <label class="orders__label" for="order-customer">Клиент</label>
+                            <input class="orders__input" id="order-customer" name="customer" placeholder="Имя клиента" data-order-customer>
+                        </div>
+                        <div class="orders__create-row orders__create-row_wide">
+                            <label class="orders__label" for="order-item-search">Позиция</label>
+                            <div class="orders__picker">
+                                <div class="orders__combo">
+                                    <input class="orders__input" id="order-item-search" type="text" placeholder="Начните вводить блюдо" autocomplete="off" data-order-search>
+                                    <div class="orders__suggest" data-order-suggest></div>
+                                </div>
+                                <input class="orders__input orders__input_qty" type="number" min="1" value="1" data-order-qty>
+                                <button class="orders__btn-add" type="button" data-order-add>Добавить</button>
+                            </div>
+                        </div>
+                        <div class="orders__create-row orders__create-row_wide">
+                            <div class="orders__basket" data-order-basket>
+                                <span class="orders__basket-empty">Пока нет позиций</span>
+                            </div>
+                        </div>
+                        <div class="orders__create-row">
+                            <label class="orders__label">Оплата</label>
+                            <div class="orders__pay">
+                                <label><input type="radio" name="pay" value="cash" data-order-pay checked> Наличный</label>
+                                <label><input type="radio" name="pay" value="card" data-order-pay> Безналичный</label>
+                            </div>
+                        </div>
+                        <div class="orders__create-row orders__create-row_between">
+                            <div class="orders__total">Итого: <span data-order-total>0₽</span></div>
+                            <button class="orders__btn_create" type="submit">Создать заказ</button>
+                        </div>
+                    </form>
+                </div>
+            </section>
+        </div>
+    </main>
+    <script src="js/auth.js"></script>
+    <script src="js/staff-menu.js"></script>
+</body>
+</html>

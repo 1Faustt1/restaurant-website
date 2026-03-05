@@ -1,0 +1,18 @@
+{
+  "name": "shaurmechka",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "sass:build": "sass scss:../css --no-source-map",
+    "sass:watch": "sass --watch scss:../css --no-source-map",
+    "server": "node ../server/index.js"
+  },
+  "devDependencies": {
+    "sass": "^1.61.0"
+  },
+  "dependencies": {
+    "cors": "^2.8.6",
+    "express": "^4.22.1",
+    "sqlite3": "^5.1.7"
+  }
+}

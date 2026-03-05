@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/login.css">
+    <title>Южный дым • Вход</title>
+</head>
+<body>
+    <header class="header">
+        <div class="header__container">
+            <a href="index.html" class="header__container-link">
+                <h1 class="header__container-title">SHAURMECHKA</h1>
+                <p class="header__container-subtitle">Premium Cafe</p>
+            </a>
+        </div>
+    </header>
+
+    <main class="main">
+        <form class="main__form" id="login-form">
+            <div class="main__form-header">
+                <h2 class="main__form-header-title">Авторизация</h2>
+                <p class="main__form-header-subtitle">для сотрудников предприятия</p>
+            </div>
+            <div class="main__form-body">
+                <label class="main__form-body-label" for="login">Логин</label>
+                <input class="main__form-body-input" type="text" placeholder="Логин" id="login" required>
+
+                <label class="main__form-body-label" for="password">Пароль</label>
+                <input class="main__form-body-input" type="password" placeholder="Пароль" id="password" required>
+
+                <button class="main__form-body-btn" type="submit">Войти</button>
+                <p class="main__form-body-error" data-login-error></p>
+                <p class="main__form-body-info">Логин и пароль выдаёт владелец/администратор сотрудникам.</p>
+            </div>
+        </form>
+    </main>
+    <script src="js/auth.js"></script>
+</body>
+</html>

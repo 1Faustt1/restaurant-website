@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/index.css">
+    <title>Онлайн‑заказ</title>
+    <style>
+        :root { --gold:#c6a85a; --gray:#9a9a9a; --bg:#0f0f10; }
+        body { background: var(--bg); color:#fff; }
+        .order-page { max-width: 1200px; margin: 140px auto 80px; padding: 0 20px; }
+        .order-page__title { font-size: 32px; color: var(--gold); margin-bottom: 6px; }
+        .order-page__desc { color: var(--gray); margin-bottom: 28px; }
+        .order-form { display: grid; gap: 18px; background: rgba(255,255,255,0.04); border:1px solid rgba(198,168,90,0.35); border-radius: 16px; padding: 18px; box-shadow: 0 12px 28px rgba(0,0,0,0.35); }
+        .order-form__row { display: grid; gap: 8px; }
+        .order-form__label { color:#eaeaea; font-weight:700; }
+        .order-form__input, .order-form__select { width:100%; padding:12px 14px; border-radius: 10px; border:1px solid rgba(255,255,255,0.18); background: rgba(0,0,0,0.35); color:#fff; }
+        .order-form__input:focus { outline:1px solid var(--gold); }
+        .order-form__type { display:flex; gap:12px; align-items:center; flex-wrap:wrap; }
+        .order-form__type label { display:flex; gap:6px; align-items:center; color:#fff; font-weight:700; }
+        .order-form__type input { accent-color: var(--gold); }
+        .order-form__pill { padding:10px 12px; border-radius:10px; background: rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.12); color:#fff; font-size:14px; }
+        .order-picker { display:grid; gap:10px; }
+        .order-picker__line { display:flex; gap:10px; flex-wrap:wrap; align-items:center; }
+        .order-picker__input { flex:1; position:relative; }
+        .order-picker__input input { width:100%; padding:12px 14px; border-radius:10px; border:1px solid rgba(255,255,255,0.18); background: rgba(0,0,0,0.35); color:#fff; }
+        .order-picker__suggest { position:absolute; top: calc(100% + 4px); left:0; right:0; background:#111; border:1px solid rgba(198,168,90,0.25); border-radius:10px; max-height:220px; overflow:auto; display:none; z-index:20; }
+        .order-picker__item { padding:10px 12px; display:grid; grid-template-columns:1fr auto; gap:6px; cursor:pointer; }
+        .order-picker__item:hover { background: rgba(198,168,90,0.15); }
+        .order-picker__qty { width:90px; padding:12px 14px; border-radius:10px; border:1px solid rgba(255,255,255,0.18); background: rgba(0,0,0,0.35); color:#fff; }
+        .order-picker__add { padding:12px 18px; border-radius:10px; background: var(--gold); border:1px solid var(--gold); color:#18181a; font-weight:800; cursor:pointer; }
+        .order-basket { background: rgba(0,0,0,0.35); border:1px solid rgba(255,255,255,0.14); border-radius:12px; padding:12px; display:flex; flex-direction:column; gap:8px; }
+        .order-basket__row { display:grid; grid-template-columns:1fr auto auto; gap:10px; align-items:center; }
+        .order-basket__remove { background:transparent; border:1px solid rgba(255,255,255,0.15); color:#fff; border-radius:8px; padding:4px 10px; cursor:pointer; }
+        .order-basket__empty { color: var(--gray); font-style:italic; }
+        .order-total { display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap; }
+        .order-total__sum { font-size:20px; font-weight:800; color: var(--gold); }
+        .order-submit { padding:14px 22px; border-radius:12px; background: var(--gold); border:1px solid var(--gold); color:#18181a; font-weight:800; cursor:pointer; }
+        .order-alert { padding:12px; border-radius:10px; background: rgba(0,0,0,0.45); border:1px solid rgba(255,255,255,0.12); color:#fff; }
+        .order-alert_success { border-color: rgba(87,182,97,0.6); background: rgba(87,182,97,0.15); }
+        .order-alert_error { border-color: rgba(182,87,87,0.6); background: rgba(182,87,87,0.15); }
+        .order-modal { position: fixed; inset:0; background: rgba(0,0,0,0.6); display:flex; align-items:center; justify-content:center; z-index:999; }
+        .order-modal__box { background:#111; border:1px solid rgba(198,168,90,0.35); border-radius:14px; padding:24px 22px; width:min(420px,90vw); box-shadow:0 18px 36px rgba(0,0,0,0.45); text-align:center; }
+        .order-modal__title { font-size:18px; color:#fff; margin-bottom:8px; }
+        .order-modal__code { font-size:32px; font-weight:900; color: var(--gold); margin-bottom:10px; letter-spacing:1px; }
+        .order-modal__hint { color: var(--gray); font-size:14px; margin-bottom:16px; }
+        .order-status { margin-top:28px; background: rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.1); border-radius:12px; padding:16px; display:grid; gap:12px; }
+        .order-status__row { display:flex; gap:10px; flex-wrap:wrap; align-items:center; }
+        .order-status__row_split { justify-content: space-between; }
+        .order-status__input { padding:10px 12px; border-radius:10px; border:1px solid rgba(255,255,255,0.18); background: rgba(0,0,0,0.35); color:#fff; }
+        .order-status__btn { padding:10px 14px; border-radius:10px; background: var(--gold); border:1px solid var(--gold); color:#18181a; font-weight:800; cursor:pointer; }
+        .order-status__result { color:#fff; display:grid; gap:10px; }
+        .order-status__panel { background: rgba(0,0,0,0.28); border:1px solid rgba(255,255,255,0.08); border-radius:12px; padding:12px; display:grid; gap:10px; }
+        .order-status__label { color: var(--gray); font-size:13px; }
+        .order-status__value { font-size:18px; font-weight:800; color:#fff; }
+        .order-status__badge { padding:6px 10px; border-radius:999px; font-weight:800; font-size:13px; }
+        .badge-waiting { background:#2a2a2a; color:#ededed; }
+        .badge-cooking { background:#2a1a00; color:#f3b550; }
+        .badge-ready { background:#1f3b1f; color:#a7e08c; }
+        .badge-closed { background:#3b1f1f; color:#e8b4b4; }
+        .order-status__items { background: rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.06); border-radius:10px; padding:10px; display:grid; gap:6px; }
+        .order-status__items-title { color: var(--gray); font-weight:700; }
+        .order-status__item { display:grid; grid-template-columns:1fr auto; gap:6px; font-weight:700; }
+        .order-status__empty { color: var(--gray); font-style: italic; }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header__container">
+            <div class="header__container-left">
+                <a href="index.html" class="header__container-left-link">
+                    <h1 class="header__container-left-title">SHAURMECHKA</h1>
+                    <p class="header__container-left-subtitle">Premium Cafe</p>
+                </a>
+            </div>
+            <div class="header__container-center">
+                <nav class="header__container-center-nav">
+                    <a href="index.html#menu" class="header__container-center-nav-link">Меню</a>
+                    <a href="index.html#gallery" class="header__container-center-nav-link">Галерея</a>
+                    <a href="index.html#findus" class="header__container-center-nav-link">Контакты</a>
+                    <a href="booking.html" class="header__container-center-nav-link header__container-center-nav-link_btn">Бронь</a>
+                    <a href="order.html" class="header__container-center-nav-link header__container-center-nav-link_btn">Заказ</a>
+                </nav>
+            </div>
+            <div class="header__container-right">
+                <a href="login.html" class="header__container-right-link">Логин</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="order-page">
+        <h2 class="order-page__title">Онлайн‑заказ</h2>
+        <p class="order-page__desc">Оформите заказ для зала. Доставка скоро появится.</p>
+
+        <div id="order-alert" class="order-alert" style="display:none;"></div>
+        <div class="order-modal" id="order-modal" style="display:none;">
+            <div class="order-modal__box">
+                <p class="order-modal__title">Ваш номер заказа</p>
+                <p class="order-modal__code" id="order-modal-code">#000000</p>
+                <p class="order-modal__hint">Покажите номер сотруднику или продиктуйте при получении.</p>
+                <button class="order-submit" type="button" id="order-modal-close">Понятно</button>
+            </div>
+        </div>
+
+        <form class="order-form" id="order-form">
+            <div class="order-form__row order-form__type">
+                <label><input type="radio" name="type" value="dinein" checked> В зале</label>
+                <label title="Скоро доступно"><input type="radio" name="type" value="delivery" disabled> Доставка (скоро)</label>
+                <span class="order-form__pill">Оплата при получении</span>
+            </div>
+
+            <div class="order-form__row">
+                <label class="order-form__label" for="customer-name">Ваше имя</label>
+                <input class="order-form__input" id="customer-name" placeholder="Например: Ivan_Ivanov" required>
+            </div>
+
+            <div class="order-form__row">
+                <label class="order-form__label" for="table-number">Стол (если вы получить заказ с собой покажите номер вашего заказа)</label>
+                <input class="order-form__input" id="table-number" placeholder="Например: 6">
+            </div>
+
+            <div class="order-form__row order-picker">
+                <label class="order-form__label">Добавьте позиции</label>
+                <div class="order-picker__line">
+                    <div class="order-picker__input">
+                        <input type="text" id="order-search" placeholder="Начните вводить блюдо" autocomplete="off">
+                        <div class="order-picker__suggest" id="order-suggest"></div>
+                    </div>
+                    <input class="order-picker__qty" type="number" min="1" value="1" id="order-qty">
+                    <button type="button" class="order-picker__add" id="order-add">Добавить</button>
+                </div>
+                <div class="order-basket" id="order-basket">
+                    <span class="order-basket__empty">Пока нет позиций</span>
+                </div>
+            </div>
+
+            <div class="order-form__row">
+                <label class="order-form__label">Оплата</label>
+                <div class="order-form__type">
+                    <label><input type="radio" name="pay" value="cash" checked> Наличный расчёт</label>
+                    <label><input type="radio" name="pay" value="card"> Безналичный</label>
+                </div>
+            </div>
+
+            <div class="order-total">
+                <span class="order-total__sum">Итого: <span id="order-total">0₽</span></span>
+                <button class="order-submit" type="submit">Отправить заказ</button>
+            </div>
+        </form>
+
+        <div class="order-status">
+            <div class="order-status__row">
+                <label class="order-form__label" for="order-status-code">Проверить статус заказа по коду</label>
+            </div>
+            <div class="order-status__row">
+                <input class="order-status__input" id="order-status-code" placeholder="Например: #7FE17J">
+                <button class="order-status__btn" type="button" id="order-status-check">Проверить</button>
+            </div>
+            <div class="order-status__result" id="order-status-result"></div>
+        </div>
+    </main>
+
+    <script src="js/auth.js"></script>
+    <script src="js/order.js"></script>
+</body>
+</html>

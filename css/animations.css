@@ -1,0 +1,22 @@
+@keyframes gold-wave {
+  0% {
+    text-shadow: 0px 0px 10px #c6a85a;
+  }
+  50% {
+    text-shadow: 0px 0px 20px #c6a85a;
+  }
+  100% {
+    text-shadow: 0px 0px 10px #c6a85a;
+  }
+}
+@keyframes gray-wave {
+  0% {
+    text-shadow: 0px 0px 10px #9a9a9a;
+  }
+  50% {
+    text-shadow: 0px 0px 20px #9a9a9a;
+  }
+  100% {
+    text-shadow: 0px 0px 10px #9a9a9a;
+  }
+}/*# sourceMappingURL=animations.css.map */

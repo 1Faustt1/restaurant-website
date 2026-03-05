@@ -1,0 +1,175 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat+Alternates:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import 'variables';
+@import 'mixins';
+@import 'animations';
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Montserrat Alternates", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: $black;
+  color: $white;
+}
+
+.header {
+  width: 100%;
+  height: 100px;
+  background-color: $dark-gray;
+  position: fixed;
+  z-index: 255;
+  top: 0;
+  left: 0;
+
+  &__container {
+    @include width-container;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+
+    &-link { text-decoration: none; }
+
+    &-title {
+      color: $gold;
+      font-size: 30px;
+      font-weight: 700;
+      text-align: center;
+      transition: 0.2s ease-in-out;
+      &:hover { text-shadow: 0 0 10px $gold; }
+    }
+
+    &-subtitle {
+      color: $light-gray;
+      font-size: 18px;
+      font-weight: 700;
+      text-align: center;
+      transition: 0.2s ease-in-out;
+      &:hover { text-shadow: 0 0 10px $light-gray; }
+    }
+  }
+}
+
+.main {
+  width: 100%;
+  height: calc(100vh - 100px);
+  background-color: $black;
+  position: relative;
+  top: 100px;
+}
+
+.main__form {
+  width: min(760px, 90vw);
+  min-height: 70%;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba($gold, 0.35);
+  border-radius: 18px;
+  padding: 40px 48px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 18px 36px rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(10px);
+
+  &-header {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 36px;
+    gap: 6px;
+
+    &-title {
+      font-size: 46px;
+      font-weight: 800;
+      color: $gold;
+    }
+
+    &-subtitle {
+      font-size: 20px;
+      font-weight: 700;
+      color: $light-gray;
+    }
+  }
+
+  &-body {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+
+    &-label {
+      color: $white;
+      font-size: 16px;
+      font-weight: 700;
+    }
+
+    &-input {
+      width: 100%;
+      height: 56px;
+      padding: 0 16px;
+      background: rgba(0, 0, 0, 0.35);
+      border: 1px solid rgba($white, 0.15);
+      border-radius: 14px;
+      color: $white;
+      font-size: 18px;
+      font-weight: 700;
+      outline: none;
+      transition: 0.2s ease-in-out;
+
+      &:focus {
+        border-color: rgba($gold, 0.8);
+        box-shadow: 0 10px 20px rgba($gold, 0.2);
+      }
+    }
+
+    &-btn {
+      width: 100%;
+      height: 58px;
+      margin-top: 6px;
+      background: linear-gradient(135deg, $gold 0%, lighten($gold, 10%) 100%);
+      border: 1px solid $gold;
+      border-radius: 14px;
+      color: $dark-gray;
+      font-size: 20px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: 0.2s ease-in-out;
+
+      &:hover {
+        background: transparent;
+        color: $gold;
+      }
+    }
+
+    &-info {
+      color: $light-gray;
+      font-size: 16px;
+      font-weight: 700;
+      text-align: center;
+      margin-top: 8px;
+    }
+
+    &-error {
+      min-height: 24px;
+      color: #e36f6f;
+      font-size: 16px;
+      font-weight: 700;
+      text-align: center;
+      margin: 4px 0 0 0;
+    }
+  }
+}
+
+@media (max-width: 640px) {
+  .main__form { padding: 28px 22px; }
+  .main__form-header-title { font-size: 36px; }
+}
