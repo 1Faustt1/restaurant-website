@@ -5,8 +5,11 @@ const sqlite3 = require('sqlite3').verbose();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+const HOST = '0.0.0.0';
 const dbPath = path.join(__dirname, 'database.db');
 const db = new sqlite3.Database(dbPath);
+console.log(`DB path: ${dbPath}`);
+console.log(`Booting server on PORT=${PORT}, HOST=${HOST}`);
 
 app.use(cors());
 app.use(express.json());
@@ -408,6 +411,6 @@ app.get('/api/stats', async (_req, res) => {
   }
 });
 
-app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
+app.listen(PORT, HOST, () => {
+  console.log(`Server running on http://${HOST}:${PORT}`);
 });
