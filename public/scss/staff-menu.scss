@@ -505,16 +505,33 @@
 
             &__row {
                 display: grid;
-                grid-template-columns: 1.2fr 1fr 1fr;
+                grid-template-columns: 1.2fr 1fr 0.9fr auto;
                 align-items: center;
-                padding: 12px 16px;
+                padding: 14px 18px;
                 gap: 12px;
                 border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+                background: linear-gradient(120deg, rgba($white, 0.02), rgba($gold, 0.06));
+
+                &:hover {
+                    background: linear-gradient(120deg, rgba($white, 0.03), rgba($gold, 0.12));
+                    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.28);
+                    transform: translateY(-1px);
+                    transition: 0.15s ease;
+                }
 
                 &_head {
                     background: rgba($gold, 0.12);
                     color: $gold;
                     font-weight: 800;
+                    box-shadow: none;
+                    transform: none;
+
+                    span {
+                        display: flex;
+                        align-items: center;
+                        font-weight: 800;
+                        color: $gold;
+                    }
                 }
 
                 &_empty {
@@ -527,24 +544,41 @@
             &__cell {
                 color: $white;
                 font-weight: 700;
+                display: inline-flex;
+                align-items: center;
+                gap: 8px;
+
+                &--mono {
+                    font-family: 'JetBrains Mono', 'Fira Code', monospace;
+                    letter-spacing: 0.2px;
+                }
             }
 
             &__row-actions {
-                display: flex;
-                gap: 10px;
-                flex-wrap: wrap;
+                display: inline-flex;
                 justify-content: flex-end;
+                gap: 8px;
+                flex-wrap: wrap;
+                justify-self: end;
             }
 
             &__action {
-                padding: 8px 12px;
-                border-radius: 8px;
-                border: 1px solid rgba($gray, 0.6);
-                background: rgba(255, 255, 255, 0.05);
+                padding: 9px 12px;
+                border-radius: 10px;
+                border: 1px solid rgba($gray, 0.5);
+                background: rgba(255, 255, 255, 0.06);
                 color: $white;
                 cursor: pointer;
                 font-weight: 700;
-                transition: 0.12s ease-in-out;
+                transition: 0.14s ease-in-out;
+                backdrop-filter: blur(4px);
+                min-width: 110px;
+
+                &:hover {
+                    border-color: rgba($gold, 0.65);
+                    color: $gold;
+                    background: rgba($gold, 0.12);
+                }
 
                 &_edit:hover {
                     color: $dark-gray;
@@ -556,6 +590,10 @@
                     color: $white;
                     background: rgba(255, 82, 82, 0.8);
                     border-color: rgba(255, 82, 82, 0.9);
+                }
+
+                &_toggle {
+                    min-width: 120px;
                 }
             }
         }

@@ -381,6 +381,11 @@ app.get('/api/stats', async (_req, res) => {
   }
 });
 
+// --- Health check ----------------------------------------------------------
+app.get('/api/health', (_req, res) => {
+  res.status(200).json({ ok: true, uptime: process.uptime() });
+});
+
 app.listen(PORT, HOST, () => {
   console.log(`Server running on http://${HOST}:${PORT}`);
 });

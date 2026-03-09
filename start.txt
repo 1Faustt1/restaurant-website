@@ -1,2 +1,3 @@
-cd C:\Users\faust\Desktop\shaurmechka\public
-npm run server
+cd public
+$env:DATABASE_URL='postgresql://neondb_owner:npg_LeSfI6MtkA9U@ep-morning-union-ag40rt1a-pooler.c-2.eu-central-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require'
+npm start
