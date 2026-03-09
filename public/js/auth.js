@@ -1,7 +1,7 @@
 (() => {
   const SESSION_KEY = 'shaurmechka_session';
 
-  const allowedPages = ['index.html', '', 'login.html', 'booking.html', 'order.html'];
+  const allowedPages = ['index.html', '', 'login.html', 'booking.html', 'order.html', 'booking', 'order'];
 
   const getPageName = () => {
     const last = window.location.pathname.split('/').pop() || '';
