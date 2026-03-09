@@ -2,13 +2,15 @@ name: keep-render-awake
 
 on:
   schedule:
-    - cron: "*/10 * * * *" # every 10 minutes
+    - cron: "*/5 * * * *" # every 5 minutes
   workflow_dispatch:
 
 jobs:
   ping:
     runs-on: ubuntu-latest
     steps:
-      - name: Ping Render health endpoint
+      - name: Ping Render (health and root)
         run: |
-          curl -fsS https://restaurant-website-a2i9.onrender.com/api/health || true
+          URL=https://restaurant-website-a2i9.onrender.com
+          curl -fsS "$URL/api/health" || true
+          curl -fsS "$URL/" || true
