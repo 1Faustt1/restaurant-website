@@ -10,8 +10,8 @@
     "start": "npm_config_build_from_source=true node ../server/index.js",
     "postinstall": "npm rebuild sqlite3 --build-from-source --update-binary --force",
     "render-build": "npm install --build-from-source=sqlite3 --force && npm rebuild sqlite3 --build-from-source --update-binary --force",
-    "sass:build": "sass scss:../css --no-source-map",
-    "sass:watch": "sass --watch scss:../css --no-source-map",
+    "sass:build": "npx sass scss:css --no-source-map",
+    "sass:watch": "npx sass --watch scss:css --no-source-map",
     "server": "node ../server/index.js"
   },
   "devDependencies": {
