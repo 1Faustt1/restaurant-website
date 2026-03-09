@@ -68,6 +68,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const passInput = document.querySelector('#staff-password');
   const staffSubmit = staffForm?.querySelector('.staff__submit');
   const staffReadonly = role === 'Администратор';
+  const PROTECTED = ['Kirill_Klain'];
 
   const StaffAPI = {
     async list() {
@@ -102,13 +103,16 @@ document.addEventListener('DOMContentLoaded', () => {
       list.forEach((acc) => {
         const row = document.createElement('div');
         row.className = `staff__row ${acc.active ? '' : 'staff__row_disabled'}`;
+        const isProtected = PROTECTED.includes(acc.login);
         const actions = staffReadonly
           ? '<span class="staff__row-actions staff__row-actions_view">Только просмотр</span>'
-          : `<span class="staff__row-actions">
-              <button type="button" class="staff__action staff__action_edit" data-login="${acc.login}" data-role="${acc.role}" data-active="${acc.active ? 1 : 0}">Редактировать</button>
-              <button type="button" class="staff__action staff__action_toggle" data-login="${acc.login}" data-role="${acc.role}" data-next="${acc.active ? 0 : 1}">${acc.active ? 'Деактивировать' : 'Активировать'}</button>
-              <button type="button" class="staff__action staff__action_delete" data-login="${acc.login}">Удалить</button>
-            </span>`;
+          : isProtected
+            ? '<span class="staff__row-actions staff__row-actions_view">Защищённый аккаунт</span>'
+            : `<span class="staff__row-actions">
+                <button type="button" class="staff__action staff__action_edit" data-login="${acc.login}" data-role="${acc.role}" data-active="${acc.active ? 1 : 0}">Редактировать</button>
+                <button type="button" class="staff__action staff__action_toggle" data-login="${acc.login}" data-role="${acc.role}" data-next="${acc.active ? 0 : 1}">${acc.active ? 'Деактивировать' : 'Активировать'}</button>
+                <button type="button" class="staff__action staff__action_delete" data-login="${acc.login}">Удалить</button>
+              </span>`;
         row.innerHTML = `
           <span class="staff__cell">${acc.login}</span>
           <span class="staff__cell">${acc.role}</span>
@@ -146,6 +150,10 @@ document.addEventListener('DOMContentLoaded', () => {
     if (staffReadonly) return;
     const mode = staffMode.value;
     const login = loginInput.value.trim();
+    if (PROTECTED.includes(login)) {
+      alert('Этот аккаунт защищён и не может быть изменён');
+      return;
+    }
     const r = roleInput.value;
     const p = passInput.value.trim();
     if (!login || !r) return;
@@ -168,10 +176,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const t = e.target;
     if (!(t instanceof HTMLElement) || staffReadonly) return;
     if (t.classList.contains('staff__action_edit')) {
+      if (PROTECTED.includes(t.dataset.login)) return;
       setStaffEdit(t.dataset.login, t.dataset.role, Number(t.dataset.active));
     }
     if (t.classList.contains('staff__action_toggle')) {
       const login = t.dataset.login;
+      if (PROTECTED.includes(login)) return;
       const next = Number(t.dataset.next) === 1;
       const roleVal = t.dataset.role;
       if (!login) return;
@@ -184,6 +194,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     if (t.classList.contains('staff__action_delete')) {
       const login = t.dataset.login;
+      if (PROTECTED.includes(login)) return;
       if (!login) return;
       if (!confirm(`Удалить аккаунт ${login}?`)) return;
       try {

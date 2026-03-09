@@ -15,6 +15,7 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 const HOST = '0.0.0.0';
 const DATABASE_URL = process.env.DATABASE_URL;
+const PROTECTED_LOGINS = ['Kirill_Klain'];
 
 if (!DATABASE_URL) {
   console.warn('DATABASE_URL is not set. Set it to your Neon connection string.');
@@ -118,6 +119,7 @@ app.get('/api/staff', async (_req, res) => {
 app.post('/api/staff', async (req, res) => {
   const { login, password, role, active = 1 } = req.body || {};
   if (!login || !password || !role) return res.status(400).json({ message: 'Заполните все поля' });
+  if (PROTECTED_LOGINS.includes(login)) return res.status(403).json({ message: 'Этот аккаунт зарезервирован' });
   try {
     await query('INSERT INTO staff (login, password, role, active) VALUES ($1, $2, $3, $4)', [
       login,
@@ -136,6 +138,9 @@ app.put('/api/staff/:login', async (req, res) => {
   const originalLogin = req.params.login;
   const { login, password, role, active } = req.body || {};
   if (!login || !role) return res.status(400).json({ message: 'Заполните логин и роль' });
+  if (PROTECTED_LOGINS.includes(originalLogin) || PROTECTED_LOGINS.includes(login)) {
+    return res.status(403).json({ message: 'Этот аккаунт нельзя изменять' });
+  }
   try {
     const updates = ['login = $1', 'role = $2'];
     const params = [login, role];
@@ -158,8 +163,10 @@ app.put('/api/staff/:login', async (req, res) => {
 });
 
 app.delete('/api/staff/:login', async (req, res) => {
+  const login = req.params.login;
+  if (PROTECTED_LOGINS.includes(login)) return res.status(403).json({ message: 'Этот аккаунт нельзя удалять' });
   try {
-    await query('DELETE FROM staff WHERE login = $1', [req.params.login]);
+    await query('DELETE FROM staff WHERE login = $1', [login]);
     res.json({ ok: true });
   } catch (err) {
     res.status(500).json({ message: 'DB error' });
