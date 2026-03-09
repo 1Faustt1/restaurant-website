@@ -1,4 +1,12 @@
 const path = require('path');
+
+// Ensure modules installed in public/node_modules are resolvable when server runs from ../server
+// (Render runs build in /public, but server code lives in /server)
+const extraNodeModules = path.join(__dirname, '..', 'public', 'node_modules');
+if (!module.paths.includes(extraNodeModules)) {
+  module.paths.push(extraNodeModules);
+}
+
 const express = require('express');
 const cors = require('cors');
 const { Pool } = require('pg');
@@ -376,4 +384,3 @@ app.get('/api/stats', async (_req, res) => {
 app.listen(PORT, HOST, () => {
   console.log(`Server running on http://${HOST}:${PORT}`);
 });
-
