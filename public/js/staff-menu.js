@@ -50,9 +50,10 @@ document.addEventListener('DOMContentLoaded', () => {
   // common API helper
   const origin = window.location.origin;
   const API_ORIGIN =
-    !origin || origin === 'null' || origin === 'file://' || origin.includes('5500')
+    window.API_ORIGIN ||
+    (!origin || origin === 'null' || origin === 'file://' || origin.includes('5500')
       ? 'http://localhost:3000'
-      : origin;
+      : origin);
   const api = (path) => `${API_ORIGIN}${path}`;
 
   /* ---------- STAFF ---------- */

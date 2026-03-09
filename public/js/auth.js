@@ -27,9 +27,9 @@
 
   const clearSession = () => localStorage.removeItem(SESSION_KEY);
 
-  const API_ORIGIN = window.location.origin.includes('5500')
-    ? 'http://localhost:3000'
-    : window.location.origin;
+  const API_ORIGIN =
+    window.API_ORIGIN ||
+    (window.location.origin.includes('5500') ? 'http://localhost:3000' : window.location.origin);
   const api = (path) => `${API_ORIGIN}${path}`;
 
   const authenticate = async (login, password) => {

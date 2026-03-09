@@ -1,13 +1,13 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat+Alternates:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 @keyframes gold-wave {
   0% {
-    text-shadow: 0px 0px 10px #ff0000;
+    text-shadow: 0px 0px 10px #c6a85a;
   }
   50% {
-    text-shadow: 0px 0px 20px #ff0000;
+    text-shadow: 0px 0px 20px #c6a85a;
   }
   100% {
-    text-shadow: 0px 0px 10px #ff0000;
+    text-shadow: 0px 0px 10px #c6a85a;
   }
 }
 @keyframes gray-wave {
@@ -60,14 +60,14 @@ body {
   text-decoration: none;
 }
 .header__container-title {
-  color: #ff0000;
+  color: #c6a85a;
   font-size: 30px;
   font-weight: 700;
   text-align: center;
   transition: 0.2s ease-in-out;
 }
 .header__container-title:hover {
-  text-shadow: 0 0 10px #ff0000;
+  text-shadow: 0 0 10px #c6a85a;
 }
 .header__container-subtitle {
   color: #9a9a9a;
@@ -92,7 +92,7 @@ body {
   width: min(760px, 90vw);
   min-height: 70%;
   background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 0, 0, 0.35);
+  border: 1px solid rgba(198, 168, 90, 0.35);
   border-radius: 18px;
   padding: 40px 48px;
   position: absolute;
@@ -113,7 +113,7 @@ body {
 .main__form-header-title {
   font-size: 46px;
   font-weight: 800;
-  color: #ff0000;
+  color: #c6a85a;
 }
 .main__form-header-subtitle {
   font-size: 20px;
@@ -144,15 +144,15 @@ body {
   transition: 0.2s ease-in-out;
 }
 .main__form-body-input:focus {
-  border-color: rgba(255, 0, 0, 0.8);
-  box-shadow: 0 10px 20px rgba(255, 0, 0, 0.2);
+  border-color: rgba(198, 168, 90, 0.8);
+  box-shadow: 0 10px 20px rgba(198, 168, 90, 0.2);
 }
 .main__form-body-btn {
   width: 100%;
   height: 58px;
   margin-top: 6px;
-  background: linear-gradient(135deg, #ff0000 0%, #ff3333 100%);
-  border: 1px solid #ff0000;
+  background: linear-gradient(135deg, #c6a85a 0%, rgb(211.0945945946, 187.9864864865, 127.9054054054) 100%);
+  border: 1px solid #c6a85a;
   border-radius: 14px;
   color: #18181A;
   font-size: 20px;
@@ -162,7 +162,7 @@ body {
 }
 .main__form-body-btn:hover {
   background: transparent;
-  color: #ff0000;
+  color: #c6a85a;
 }
 .main__form-body-info {
   color: #9a9a9a;

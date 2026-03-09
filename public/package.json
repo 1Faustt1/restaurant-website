@@ -6,10 +6,7 @@
     "node": "18.x"
   },
   "scripts": {
-    "prestart": "node -e \"const fs=require('fs');try{fs.rmSync('node_modules/sqlite3/build/Release/node_sqlite3.node');}catch(e){}\" && npm rebuild sqlite3 --build-from-source --update-binary --force",
-    "start": "npm_config_build_from_source=true node ../server/index.js",
-    "postinstall": "npm rebuild sqlite3 --build-from-source --update-binary --force",
-    "render-build": "npm install --build-from-source=sqlite3 --force && npm rebuild sqlite3 --build-from-source --update-binary --force",
+    "start": "node ../server/index.js",
     "sass:build": "node ./node_modules/sass/sass.js scss:css --no-source-map",
     "sass:watch": "node ./node_modules/sass/sass.js --watch scss:css --no-source-map",
     "server": "node ../server/index.js"
@@ -20,6 +17,6 @@
   "dependencies": {
     "cors": "^2.8.6",
     "express": "^4.22.1",
-    "sqlite3": "^5.1.7"
+    "pg": "^8.11.5"
   }
 }
